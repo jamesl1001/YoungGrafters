@@ -1,0 +1,25 @@
+{% get products from products.all %}
+
+{% if products != blank %}
+
+<div id="products">
+  {% for product in products %}
+  <div id="product-{{ forloop.index }}" class="product-item">
+    <a href="{{ product.url }}">
+      <img class="product-img" src="{{ product.image | product_image_url size:"large" }}" alt="Image of {{ product.name | escape }}" />
+      <div class="product-overlay">
+        <h3 class="product-title">{{ product.name }}</h3>
+        <p class="product-price">{{ product.default_price | money_with_sign }}</p>
+      </div>
+    </a>
+  </div>
+  {% endfor %}
+</div>
+
+{% else %}
+
+<p class="error">No products found.</p>
+
+{% endif %}
+
+{% endget %}

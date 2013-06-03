@@ -1,0 +1,101 @@
+<div id="left">
+
+  <div id="simpleslider">
+    <div id="ss__wrapper">
+      {% for image in product.images %}
+        <img src="{{ image | product_image_url }}" alt="Image of {{ product.name | escape }}" />
+      {% endfor %}
+    </div>
+    <div id="ss__controls">
+      <div id="ss__prev"><div id="ss__prevChev"></div></div>
+      <div id="ss__next"><div id="ss__nextChev"></div></div>
+      <div id="ss__dots"></div>
+    </div>
+  </div>
+  <script src="http://assets.young-grafters.com/simpleslider/simpleslider-0.4.min.js"></script>
+  <script>
+    simpleslider(660);
+  </script>
+
+</div>
+
+<div id="right">
+
+  <div id="product-details">
+
+    <h2 class="product-title">{{ product.name }} <small>{{ product.default_price | money_with_sign }}</small></h2>
+
+    {% if product.description != blank %}
+    <div class="product-info">
+      {{ product.description | paragraphs }}
+    </div>
+    {% endif %}
+
+    <form id="product-form" target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+      <input type="hidden" name="cmd" value="_s-xclick">
+      <input type="hidden" name="hosted_button_id" value="
+      {% case product.permalink %}
+        {% when 'mr-grafter' %}
+        NRN8KCS3V73Z2
+        {% when 'royal-grafter' %}
+        58YWGE83N2ZEJ
+        {% when 'wealth' %}
+        KVQV7ER2YPXSU
+        {% when 'ballers-club' %}
+        BHTSD6AC8YCCN
+        {% when 'money-matrimony' %}
+        DJEENNRGKV7HJ
+      {% endcase %}
+      ">
+      <div id="product-options" class="options">
+        <h3>Size</h3>
+        <input type="hidden" name="on0" value="Size">
+        <select id="option" name="os0">
+          <option value="Small">Small</option>
+          <option value="Medium">Medium</option>
+          <option value="Large">Large</option>
+        </select>
+        <p id="sizing-care-guide">{{ pages.sizing-care-guide | link_to }}</p>
+      </div>
+      <!--<input type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_cart_LG.gif" border="0" name="submit" alt="PayPal — The safer, easier way to pay online.">-->
+      <input id="product-addtocart" class="button plus" value="Add to cart" type="submit" alt="PayPal — The safer, easier way to pay online.">
+      <img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">
+    </form>
+
+    <div id="social-shares">
+      <div class="fblike"><iframe src="//www.facebook.com/plugins/like.php?href={{ page.full_url }}&amp;send=false&amp;layout=button_count&amp;width=75&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21&amp;appId=162836263794905" scrolling="no" frameborder="0" allowTransparency="true"></iframe></div>
+      <div class="tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-related="YoungGrafters">Tweet</a></div>
+      <div class="g-plusone" data-size="medium" data-href="{{ page.full_url }}"></div>
+      <div id="tumblr-button"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+</script>
+
+<script>
+  var tumblr_photo_source = "{{ product.image | product_image_url }}";
+  var tumblr_photo_caption = "{{ product.name }} - {{ page.full_url }}";
+  var tumblr_photo_click_thru = "{{ page.full_url }}";
+
+  var tumblr_button = document.createElement("a");
+  tumblr_button.setAttribute("href", "http://www.tumblr.com/share/photo?source=" + encodeURIComponent(tumblr_photo_source) + "&caption=" + encodeURIComponent(tumblr_photo_caption) + "&clickthru=" + encodeURIComponent(tumblr_photo_click_thru));
+  tumblr_button.setAttribute("title", "Share on Tumblr");
+  tumblr_button.setAttribute("target", "_blank");
+  tumblr_button.setAttribute("style", "display:inline-block; text-indent:-9999px; overflow:hidden; width:129px; height:20px; background:url('http://platform.tumblr.com/v1/share_3T.png') top left no-repeat transparent;");
+  tumblr_button.innerHTML = "Share on Tumblr";
+  document.getElementById("tumblr-button").appendChild(tumblr_button);
+</script>
+
+<script type="text/javascript">
+  window.___gcfg = {lang: 'en-GB'};
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
